@@ -151,7 +151,7 @@ public class AppDAOImpl implements AppDAO {
     }
 
     @Override
-    public Student findStudentAndCourse(int theId) {
+    public Student findStudentAndCourseByStudentId(int theId) {
         TypedQuery<Student> query = entityManager.createQuery(
                 "select s from Student s "
                         + "JOIN FETCH s.courses "
@@ -161,5 +161,11 @@ public class AppDAOImpl implements AppDAO {
         Student student = query.getSingleResult();
 
         return student;
+    }
+
+    @Override
+    @Transactional
+    public void addOrUpdateStudent(Student tempStudent) {
+        entityManager.merge(tempStudent);
     }
 }

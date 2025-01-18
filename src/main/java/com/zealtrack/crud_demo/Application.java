@@ -26,13 +26,33 @@ public class Application {
             System.out.println("Hi, Mom");
 //            createCourseAndStudents(appDAO);
 //            findCourseAndStudents(appDAO);
-            findStudentAndCourses(appDAO);
+//            findStudentAndCourses(appDAO);
+            addMoreCoursesForStudent(appDAO);
         };
+    }
+
+    private void addMoreCoursesForStudent(AppDAO appDAO) {
+        int theId = 2;
+        Student tempStudent = appDAO.findStudentAndCourseByStudentId(theId);
+
+        Course tempCourse1 = new Course("Rubik's Cube - How to speed cube");
+        Course tempCourse2 = new Course("Atari 2600 - Game Development");
+
+        // add courses to student
+        tempStudent.addCourse(tempCourse1);
+        tempStudent.addCourse(tempCourse2);
+
+        System.out.println("Updating student: " + tempStudent);
+        System.out.println("associated courses: " + tempStudent.getCourses());
+
+        appDAO.addOrUpdateStudent(tempStudent);
+
+        System.out.println("Done!");
     }
 
     private void findStudentAndCourses(AppDAO appDAO) {
         int theId = 1;
-        Student tempStudent = appDAO.findStudentAndCourse(theId);
+        Student tempStudent = appDAO.findStudentAndCourseByStudentId(theId);
 
         System.out.println("Loaded student: " + tempStudent);
         System.out.println("Courses: " + tempStudent.getCourses());
