@@ -1,10 +1,7 @@
 package com.zealtrack.crud_demo;
 
 import com.zealtrack.crud_demo.dao.AppDAO;
-import com.zealtrack.crud_demo.entity.Course;
-import com.zealtrack.crud_demo.entity.Instructor;
-import com.zealtrack.crud_demo.entity.InstructorDetail;
-import com.zealtrack.crud_demo.entity.Review;
+import com.zealtrack.crud_demo.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,7 +24,25 @@ public class Application {
     public CommandLineRunner commandLineRunner(AppDAO appDAO) {
         return runner -> {
             System.out.println("Hi, Mom");
+            createCourseAndStudents(appDAO);
         };
+    }
+
+    private void createCourseAndStudents(AppDAO appDAO) {
+        Course tempCourse = new Course("Pacman - How to score one million points");
+
+        Student tempStudent1 = new Student("John", "Doe", "john@zealtrack.lk");
+        Student tempStudent2 = new Student("Mary", "Public", "marry@zealtrack.lk");
+
+        tempCourse.addStudent(tempStudent1);
+        tempCourse.addStudent(tempStudent2);
+
+        System.out.println("Saving the course: " + tempCourse);
+        System.out.println("associated students: " + tempCourse.getStudents());
+
+        appDAO.saveCourse(tempCourse);
+
+        System.out.println("Done!");
     }
 
     private void deleteCourseAndReviews(AppDAO appDAO) {
