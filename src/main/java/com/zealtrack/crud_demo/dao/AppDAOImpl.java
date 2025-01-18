@@ -3,6 +3,7 @@ package com.zealtrack.crud_demo.dao;
 import com.zealtrack.crud_demo.entity.Course;
 import com.zealtrack.crud_demo.entity.Instructor;
 import com.zealtrack.crud_demo.entity.InstructorDetail;
+import com.zealtrack.crud_demo.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,5 +148,18 @@ public class AppDAOImpl implements AppDAO {
         Course course = query.getSingleResult();
 
         return course;
+    }
+
+    @Override
+    public Student findStudentAndCourse(int theId) {
+        TypedQuery<Student> query = entityManager.createQuery(
+                "select s from Student s "
+                        + "JOIN FETCH s.courses "
+                        + "where s.id = :data", Student.class);
+        query.setParameter("data", theId);
+
+        Student student = query.getSingleResult();
+
+        return student;
     }
 }

@@ -3,6 +3,7 @@ package com.zealtrack.crud_demo.dao;
 import com.zealtrack.crud_demo.entity.Course;
 import com.zealtrack.crud_demo.entity.Instructor;
 import com.zealtrack.crud_demo.entity.InstructorDetail;
+import com.zealtrack.crud_demo.entity.Student;
 
 import java.util.List;
 
@@ -35,4 +36,6 @@ public interface AppDAO {
     Course findCourseAndReviewsBtCourseId(int theId);
 
     Course findCourseAndStudentsByCourseId(int theId);
+
+    Student findStudentAndCourse(int theId);
 }
